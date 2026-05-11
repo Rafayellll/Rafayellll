@@ -178,7 +178,18 @@ select.form-input option{background:var(--bg2)}
 <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png"/>
 
 <script>
-const API = 'http://localhost:8000';
+// Where the backend lives. Resolution order:
+//   1. If `window.API_URL` is defined (e.g. set by a future config.js), use it.
+//   2. Local dev (`localhost`, `127.0.0.1`, or `file://`) → talk to local
+//      Python server on :8000 directly. Keeps the local .bat workflow intact.
+//   3. Otherwise → use relative paths so requests hit the same origin. The
+//      Netlify deploy proxies `/api/*` and `/uploads/*` to the Fly.io backend
+//      (see `netlify.toml`), which avoids CORS issues entirely.
+const API = (typeof window.API_URL === 'string')
+  ? window.API_URL
+  : ((['localhost', '127.0.0.1', ''].indexOf(location.hostname) !== -1)
+      ? 'http://localhost:8000'
+      : '');
 let token = localStorage.getItem('sp_token');
 let user = null;
 let authMode = 'login';

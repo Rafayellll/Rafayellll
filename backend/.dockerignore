@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.local
+portal.db
+portal.db-*
+uploads/
+.git/
+.gitignore
+schema.sql
+Dockerfile
+.dockerignore
