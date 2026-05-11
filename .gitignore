@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.local
+
+# Local app state — keep schema/migrations, not data
+backend/portal.db
+backend/portal.db-*
+backend/uploads/
+
+# Build artifacts
+dist/
+build/
+.DS_Store

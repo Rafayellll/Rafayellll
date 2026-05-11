@@ -1,0 +1,28 @@
+# Fly.io deployment config for the СтудПортфолио FastAPI backend.
+# Run `fly apps create <name>` once, then `fly deploy` from this directory.
+# A 1 GiB volume named "studportfolio_data" must exist in the same region —
+# see deploy steps in ../README.md.
+
+app = "studportfolio-rafayellll"
+primary_region = "fra"
+
+[build]
+
+[env]
+  DATA_DIR = "/data"
+  PORT = "8000"
+
+[[mounts]]
+  source = "studportfolio_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"

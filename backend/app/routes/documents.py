@@ -6,7 +6,7 @@ from app.database import get_db
 from app.models.models import Participation, Document, User, DocStatus
 from app.utils.auth import get_current_user, require_teacher
 
-UPLOAD_DIR = "./uploads"
+UPLOAD_DIR = os.path.join(os.environ.get("DATA_DIR", "."), "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 ALLOWED_TYPES = {"application/pdf", "image/jpeg", "image/png", "image/jpg"}
 

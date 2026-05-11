@@ -1,0 +1,24 @@
+# Netlify config for the static frontend.
+#
+# Two reverse-proxy rules forward API and upload traffic to the Fly.io backend
+# so the browser sees them as same-origin (no CORS preflight, no mixed content,
+# no hard-coded backend URL in client JS).
+#
+# If you redeploy the backend with a different name, update the two URLs below.
+# Netlify does not interpolate env vars into redirects, so this has to be the
+# literal URL.
+
+[build]
+  publish = "frontend"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://BACKEND-URL-PLACEHOLDER.fly.dev/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://BACKEND-URL-PLACEHOLDER.fly.dev/uploads/:splat"
+  status = 200
+  force = true
